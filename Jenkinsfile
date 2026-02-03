@@ -18,7 +18,9 @@ pipeline {
 
         stage('Run ROS Container (Smoke Test)') {
             steps {
-                bat 'docker run --rm --privileged ros2-jazzy-demo sleep 5'
+                    timeout(time: 10, unit: 'SECONDS') {
+                        bat 'docker run --rm --privileged ros2-jazzy-demo'
+                }
             }
         }
     }
