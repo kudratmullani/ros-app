@@ -16,17 +16,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh '''
-                  docker build -t $IMAGE_NAME .
-                '''
+                bat 'docker build -t $IMAGE_NAME .'
             }
         }
 
         stage('Run ROS Container (Smoke Test)') {
             steps {
-                sh '''
-                  docker run --rm --privileged $IMAGE_NAME sleep 5
-                '''
+                bat 'docker run --rm --privileged $IMAGE_NAME sleep 5'
             }
         }
     }
@@ -39,7 +35,7 @@ pipeline {
             echo '❌ CI failed – check Docker build or runtime logs'
         }
         always {
-            sh 'docker system prune -f || true'
+            bat 'docker system prune -f || true'
         }
     }
 }
