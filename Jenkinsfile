@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "ros2-jazzy-demo"
-    }
-
     stages {
 
         stage('Checkout') {
@@ -16,13 +12,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                bat 'docker build -t $IMAGE_NAME .'
+                bat 'docker build -t ros2-jazzy-demo .'
             }
         }
 
         stage('Run ROS Container (Smoke Test)') {
             steps {
-                bat 'docker run --rm --privileged $IMAGE_NAME sleep 5'
+                bat 'docker run --rm --privileged ros2-jazzy-demo sleep 5'
             }
         }
     }
