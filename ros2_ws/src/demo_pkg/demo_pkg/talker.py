@@ -1,5 +1,7 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import ExternalShutdownException
+import time
 
 class SimpleTalker(Node):
     def __init__(self):
@@ -12,8 +14,14 @@ class SimpleTalker(Node):
 def main():
     rclpy.init()
     node = SimpleTalker()
-    rclpy.spin(node)   # 👈 THIS MUST EXIST
-    rclpy.shutdown()
+
+    try:
+        rclpy.spin(node)
+    except ExternalShutdownException:
+        node.get_logger().info('ROS shutdown requested (CI/Docker stop)')
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
