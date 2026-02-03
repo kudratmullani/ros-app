@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/<your-username>/ros2-jazzy-cicd.git'
+                    url: 'https://github.com/kudratmullani/ros-app.git'
             }
         }
 
