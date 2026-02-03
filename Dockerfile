@@ -9,5 +9,5 @@ WORKDIR /app
 COPY ros2_ws/src/demo_pkg/demo_pkg/talker.py ./talker.py
 
 # Run the node directly
-CMD source /opt/ros/jazzy/setup.bash && \
-    python3 talker.py
+CMD ["bash", "-c", "source /opt/ros/jazzy/setup.bash && python3 /app/talker.py"]
+
